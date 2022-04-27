@@ -37,18 +37,21 @@ const saveFormData = (e) => {
 
     // Check validity
     let errors = '';
-    errors += nameInput.checkValidity() ? '' : '<li>Need a name.</li>'
-    errors += emailInput.checkValidity() ? '' : '<li>Need a valid email.</li>'
-    errors += messageInput.checkValidity() ? '' : '<li>Need a message.</li>'
+    errors += nameInput.checkValidity() ? '' : '<li>Need a name.</li>';
+    errors += emailInput.checkValidity() ? '' : '<li>Need a valid email.</li>';
+    errors += messageInput.checkValidity() ? '' : '<li>Need a message.</li>';
 
     if (!errors) {  // Valid input
+
+        // I wanna use object initialization with shorthand property names,
+        //  just beacuse
+        const name = nameInput;
+        const email = emailInput;
+        const message = messageInput;
+
         // Save storage
         const users = getUsers();
-        users[emailInput.value] = {
-            name:nameInput.value,
-            email:emailInput.value,
-            message:messageInput.value
-        };
+        users[email] = { name, email, message };
         saveUsers(users);
 
         // Empty form
@@ -70,10 +73,19 @@ const showUsersList = () => {
     let inn = '';
     const users = getUsers()
     for (const userKey in users) {
-        const user = users[userKey];
+
+        // OLD VERSION:
+        // const user = users[userKey];
+        // inn += '<li>';
+        // inn += `<strong>${user.name}</strong>: ${user.email}<br>${user.message} `;
+        // inn += `<button onclick="deleteUser('${userKey}')">Delete</button>`;
+        // inn += '</li>';
+
+        // Using destructuring, just because
+        const { name, email, message } = users[userKey];
         inn += '<li>';
-        inn += `<strong>${user.name}</strong>: ${user.email}<br>${user.message} `;
-        inn += `<button onclick="deleteUser('${userKey}')">Delete</button>`;
+        inn += `<strong>${name}</strong>: ${email}<br>${message} `;
+        inn += `<button onclick="deleteUser('${userKey}')">Delete User</button>`;
         inn += '</li>';
     }
     // Empty list warning:
