@@ -13,7 +13,7 @@ if (!localStorage.users) {
 // Constants ///////////////////////////////////////////////////////////////////
 const submitBtn = document.querySelector('#saveData');
 const usersContainer = document.querySelector('#users-container');
-const errorBox = document.querySelector('#error-box');
+const infoBox = document.querySelector('#info-box');
 const nameInput = document.querySelector('#name');
 const emailInput = document.querySelector('#email');
 const messageInput = document.querySelector('#message');
@@ -24,14 +24,19 @@ let inn = '';
 // Functions ///////////////////////////////////////////////////////////////////
 const getUsers = () => JSON.parse(localStorage.users);
 const saveUsers = (users) => localStorage.users = JSON.stringify(users);
+const reportInfo = (msg, kind) => {
+    infoBox.innerHTML = `<div class="info ${kind}">${msg}</div>`;
+};
+const reportSuccess = (msg) => { reportInfo(msg, 'success'); };
+const reportError = (msg) => { reportInfo(msg, 'error'); };
 
 const saveFormData = (e) => {
 
     e.preventDefault();
+    infoBox.innerHTML = '';
 
     // Check validity
     let errors = '';
-    errorBox.innerHTML = '';
     errors += nameInput.checkValidity() ? '' : '<li>Need a name.</li>'
     errors += emailInput.checkValidity() ? '' : '<li>Need a valid email.</li>'
     errors += messageInput.checkValidity() ? '' : '<li>Need a message.</li>'
@@ -52,9 +57,11 @@ const saveFormData = (e) => {
         // Put users
         showUsersList();
 
+        // Success info
+        reportSuccess('User successfully saved');
+
     } else {  // Invalid input
-        errors = `<ul class="error">${errors}</ul>`;
-        errorBox.innerHTML = errors;
+        reportError(`<ul>${errors}</ul>`);
     }
 };
 
@@ -78,6 +85,7 @@ const showUsersList = () => {
 const deleteAllUsers = () => {
     localStorage.users = '{}';
     showUsersList();
+    reportSuccess('All users deleted.')
 };
 
 const deleteUser = (userKey) => {
@@ -85,6 +93,7 @@ const deleteUser = (userKey) => {
     delete users[userKey];
     saveUsers(users);
     showUsersList();
+    reportSuccess(`User ${userKey} deleted.`);
 };
 
 

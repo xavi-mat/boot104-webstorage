@@ -8,9 +8,18 @@
   <title>Web Storage</title>
 
   <style>
+    .info {
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+    }
     .error {
       color: darkred;
       background-color: rgb(255, 234, 238);
+    }
+    .success {
+      color: green;
+      background-color: rgb(215, 255, 215);
     }
   </style>
 </head>
@@ -24,7 +33,7 @@
     <input type="submit" value="Submit" id="saveData">
   </form>
 
-  <div id="error-box"></div>
+  <div id="info-box"></div>
 
   <div id="buttons-box">
     <button onclick="deleteAllUsers()">Delete all users</button>
