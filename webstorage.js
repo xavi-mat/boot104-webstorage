@@ -58,7 +58,7 @@ const saveFormData = (e) => {
         showUsersList();
 
         // Success info
-        reportSuccess('User successfully saved');
+        reportSuccess(`User successfully saved.`);
 
     } else {  // Invalid input
         reportError(`<ul>${errors}</ul>`);
@@ -85,7 +85,7 @@ const showUsersList = () => {
 const deleteAllUsers = () => {
     localStorage.users = '{}';
     showUsersList();
-    reportSuccess('All users deleted.')
+    reportSuccess('All users successfully deleted.')
 };
 
 const deleteUser = (userKey) => {
@@ -93,7 +93,7 @@ const deleteUser = (userKey) => {
     delete users[userKey];
     saveUsers(users);
     showUsersList();
-    reportSuccess(`User ${userKey} deleted.`);
+    reportSuccess(`User ${userKey} successfully deleted.`);
 };
 
 
