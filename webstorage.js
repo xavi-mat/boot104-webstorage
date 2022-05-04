@@ -45,9 +45,9 @@ const saveFormData = (e) => {
 
         // I wanna use object initialization with shorthand property names,
         //  just beacuse
-        const name = nameInput;
-        const email = emailInput;
-        const message = messageInput;
+        const name = nameInput.value;
+        const email = emailInput.value;
+        const message = messageInput.value;
 
         // Save storage
         const users = getUsers();
@@ -61,7 +61,7 @@ const saveFormData = (e) => {
         showUsersList();
 
         // Success info
-        reportSuccess(`User successfully saved.`);
+        reportSuccess('User successfully saved.');
 
     } else {  // Invalid input
         reportError(`<ul>${errors}</ul>`);
